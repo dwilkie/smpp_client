@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = SmppClient::VERSION
   spec.authors       = ["David Wilkie"]
   spec.email         = ["dwilkie@gmail.com"]
-  spec.description   = "A SMPP client written in Ruby that can connect to SMSCs for sending and receiving  SMS messages"
+  spec.description   = "A SMPP client written in Ruby that can connect to SMSCs for sending and receiving SMS messages"
   spec.summary       = "A SMPP client implemented in Ruby"
-  spec.homepage      = "https://github.com/dwilkie/ruby_smpp_client"
+  spec.homepage      = "https://github.com/dwilkie/smpp_client"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
