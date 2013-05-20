@@ -1,6 +1,6 @@
 # SmppClient
 
-TODO: Write a gem description
+SmppClient is a high level Smpp Client written in Ruby. You can use it to connect to SMSCs, send out MT (Mobile Terminated) messages and queue MO (Mobile Originated) messages for processing. SmppClient uses Resque to queue MOs for processing and send out MTs.
 
 ## Installation
 
@@ -16,9 +16,23 @@ Or install it yourself as:
 
     $ gem install smpp_client
 
+## Configuration
+
+Generate a sample configuration file for your SMPP connection
+
+    bundle exec smpp_client configure GATEWAY_NAME
+
+Replace GATEWAY_NAME with the name of your gateway.
+
+Edit the generated `gateways.yml` file and replace the configuration with the real configuration of the SMSC.
+
 ## Usage
 
-TODO: Write usage instructions here
+Start the Smpp Client
+
+    bundle exec smpp_client start GATEWAY_NAME
+
+Replace GATEWAY_NAME with the name of your gateway.
 
 ## Contributing
 
