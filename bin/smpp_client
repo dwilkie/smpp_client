@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'smpp_client/cli/smpp_client_command'
+
+SmppClient::Cli::SmppClientCommand.start
