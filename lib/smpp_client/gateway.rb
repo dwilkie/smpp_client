@@ -7,7 +7,7 @@ module SmppClient
     attr_reader :config
 
     def initialize(config)
-      @config = config
+      @config = config.symbolize_keys!
     end
 
     def start
@@ -49,8 +49,8 @@ module SmppClient
 
     def connection
       @connection ||= EventMachine.connect(
-        @config["host"],
-        @config["port"],
+        @config[:host],
+        @config[:port],
         Smpp::Transceiver,
         @config,
         self    # delegate that will receive callbacks on MOs and DRs and other events
