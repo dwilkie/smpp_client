@@ -47,8 +47,8 @@ module SmppClient
 
     def connection
       @connection ||= EventMachine.connect(
-        @config[:host],
-        @config[:port],
+        @config["host"],
+        @config["port"],
         Smpp::Transceiver,
         @config,
         self    # delegate that will receive callbacks on MOs and DRs and other events

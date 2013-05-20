@@ -1,8 +1,9 @@
 # encoding: utf-8
 
 require 'thor'
-require 'smpp_client/generators/gateway_config/gateway_config_generator'
 require 'yaml'
+require 'smpp_client/generators/gateway_config/gateway_config_generator'
+require 'smpp_client/gateway'
 
 module SmppClient
   module Cli
@@ -18,6 +19,7 @@ module SmppClient
         raise ArgumentError.new("Gateway configuration file #{options[:config_file]} does not exist") unless File.exists?(options[:config_file])
         gateway_config = YAML.load_file(options[:config_file])["gateways"][gateway]
         raise ArgumentError.new("No configuration for the gateway '#{gateway}' found in #{options[:config_file]}") unless gateway_config
+        SmppClient::Gateway.new(gateway_config).start
       end
 
       desc "configure GATEWAY", "generates a configuration file for the given gateway"

@@ -71,7 +71,15 @@ module SmppClient
 
           context "without passing --config-file" do
             context "when I pass the name of a gateway which is specified in the config file" do
-              it "should do something" do
+              let(:gateway) { mock(SmppClient::Gateway) }
+
+              before do
+                SmppClient::Gateway.stub(:new).and_return(gateway)
+                gateway.stub(:start)
+              end
+
+              it "should start the gateway with the specified config" do
+                gateway.should_receive(:start)
                 run_command
               end
             end
