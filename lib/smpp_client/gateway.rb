@@ -1,6 +1,7 @@
 require "smpp"
 require "pace"
 require "resque"
+require "smpp_client/core_ext/hash"
 
 module SmppClient
   class Gateway
