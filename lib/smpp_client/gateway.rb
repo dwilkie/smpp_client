@@ -1,8 +1,10 @@
+require "smpp"
+require "pace"
+require "resque"
+
 module SmppClient
   class Gateway
-    require "smpp"
-    require "pace"
-    require "resque"
+    attr_reader :config
 
     def initialize(config)
       @config = config

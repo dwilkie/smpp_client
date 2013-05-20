@@ -4,10 +4,9 @@ require 'smpp_client/cli/smpp_client_command'
 module SmppClient
   module Cli
     describe SmppClientCommand do
-      let(:default_gateway_config_path) { File.join(Dir.pwd, "gateways.yml") }
-      let(:sample_gateway_config) {
-        File.read(File.expand_path(File.join(File.dirname(__FILE__), '../../fixtures/gateways.yml')))
-      }
+      include ConfigHelpers
+
+      let(:default_config_path) { File.join(Dir.pwd, "gateways.yml") }
 
       subject { SmppClientCommand }
 
@@ -61,10 +60,10 @@ module SmppClient
           end
 
           def run_command(options = {})
-            default_gateway_config_path
-            sample_gateway_config
+            default_config_path
+            sample_config
             FakeFS do
-              generate_config(sample_gateway_config, default_gateway_config_path)
+              generate_config(sample_config, default_config_path)
               super
             end
           end
@@ -79,6 +78,7 @@ module SmppClient
               end
 
               it "should start the gateway with the specified config" do
+                SmppClient::Gateway.should_receive(:new).with(sample_gateway_config)
                 gateway.should_receive(:start)
                 run_command
               end
@@ -88,7 +88,7 @@ module SmppClient
               it "should raise an error" do
                 expect { run_command(:gateway => "beeline")}.to raise_error(
                   ArgumentError,
-                  "No configuration for the gateway 'beeline' found in #{default_gateway_config_path}"
+                  "No configuration for the gateway 'beeline' found in #{default_config_path}"
                 )
               end
             end
