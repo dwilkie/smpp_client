@@ -1,5 +1,7 @@
 # SmppClient
 
+[![Build Status](https://travis-ci.org/dwilkie/smpp_client.png)](https://travis-ci.org/dwilkie/smpp_client)
+
 SmppClient is a high level Smpp Client written in Ruby. You can use it to connect to SMSCs, send out MT (Mobile Terminated) messages and queue MO (Mobile Originated) messages for processing. SmppClient uses Resque to queue MOs for processing and send out MTs.
 
 ## Installation
