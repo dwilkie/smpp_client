@@ -6,17 +6,15 @@
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add the following lines to your application's Gemfile:
 
-    gem 'smpp_client'
+    gem "smpp_client", :git => "git://github.com/dwilkie/smpp_client.git"
+    gem "ruby-smpp",   :git => "git://github.com/dwilkie/ruby-smpp.git"
+    gem "pace",        :git => "git://github.com/groupme/pace.git"
 
 And then execute:
 
     bundle
-
-Or install it yourself as:
-
-    gem install smpp_client
 
 ## Configuration
 
