@@ -8,7 +8,8 @@ module SmppClient
     attr_reader :config
 
     def initialize(config)
-      @config = config.symbolize_keys!
+      @config = config
+      Pace.redis_url = config["redis"]["url"]
     end
 
     def start
@@ -17,7 +18,7 @@ module SmppClient
       end
 
       worker.start do |job|
-        connection.send_mt(uuid.generate, *job["args"])
+        connection.send_mt(*job["args"])
       end
     end
 
@@ -50,25 +51,21 @@ module SmppClient
 
     def connection
       @connection ||= EventMachine.connect(
-        @config[:host],
-        @config[:port],
+        config["smpp"]["host"],
+        config["smpp"]["port"],
         Smpp::Transceiver,
-        @config,
+        config["smpp"].symbolize_keys,
         self    # delegate that will receive callbacks on MOs and DRs and other events
       )
     end
     alias_method :connect!, :connection
 
-    def uuid
-      @uuid ||= UUID.new
-    end
-
     def worker
-      @worker ||= Pace::Worker.new(ENV["PACE_QUEUE"] || "normal")
+      @worker ||= Pace::Worker.new(config["redis"]["queue"])
     end
 
     def logger
-      Pace.logger
+      Smpp::Base.logger
     end
   end
 end
